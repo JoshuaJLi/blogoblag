@@ -26,3 +26,8 @@ body {
 #header {
   text-transform: capitalize;
 }
+
+#footer {
+  padding-top: 10ch;
+  text-align: center;
+}
