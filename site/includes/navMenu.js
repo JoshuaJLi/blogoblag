@@ -1,0 +1,13 @@
+document.write('\
+\
+<div id=navMenu>\
+<ul>\
+<li><a href="./index.html">Home</a></li>\
+<li><a href="./blog.html">Blog</a></li>\
+<li><a href="./changelog.html">Changelog</a></li>\
+<li>Cool Links</li>\
+<li>Photos</li>\
+<li>Product Reviews</li>\
+</ul>\
+</div>\
+')

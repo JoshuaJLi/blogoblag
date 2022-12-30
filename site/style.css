@@ -3,7 +3,26 @@
    "how to change link color." */
 
 body {
-  background-color: white;
+  background-color: whitesmoke;
   color: black;
-  font-family: Verdana;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 5% 20% 10% 20%;
+}
+
+#navMenu ul {
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: lightblue;
+}
+
+#navMenu li {
+  display: inline;
+  padding: 20% 2% 20% 2%;
+}
+
+#header {
+  text-transform: capitalize;
 }
