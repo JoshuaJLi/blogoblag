@@ -31,3 +31,17 @@ body {
   padding-top: 10ch;
   text-align: center;
 }
+
+#blogpost h1 {
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+#blogpost li {
+  margin: 10px 0;
+  line-height: 22px;
+}
+
+#blogpost p {
+  line-height: 22px;
+}
