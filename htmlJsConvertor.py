@@ -1,7 +1,7 @@
 import os
 import sys
 
-directory = ".\site\includes"
+directory = ".\\site\\includes"
 
 # code adapted from https://stackoverflow.com/a/2212728
 for folder, subs, files in os.walk(directory):

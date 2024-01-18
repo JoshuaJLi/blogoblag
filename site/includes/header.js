@@ -1,1 +1,1 @@
-document.write('<html><!DOCTYPE html><head>    <meta charset="UTF-8">    <title>Home</title>    <link href="./style.css" rel="stylesheet" type="text/css" media="all"></head><div id="header">    <h1>Welcome to my Blogoblag!</h1></div>')
+document.write('<html><!DOCTYPE html><head>    <meta charset="UTF-8">    <title>Home</title>    <link href="/style.css" rel="stylesheet" type="text/css" media="all"></head><div id="header">    <h1>Welcome to my Blogoblag!</h1></div>')
