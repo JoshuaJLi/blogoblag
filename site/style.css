@@ -45,3 +45,7 @@ body {
 #blogpost p {
   line-height: 22px;
 }
+
+.date {
+  font-size: 10pt;
+}
