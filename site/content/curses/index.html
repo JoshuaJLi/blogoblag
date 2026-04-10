@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Card Generator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="page">
+		<div class="layout">
+			<div class="editor-column">
+				<section class="controls" aria-labelledby="generator-title">
+					<h1 id="generator-title">Card Generator</h1>
+					<p class="hint">Fill out the fields, add cards to the preview, then print the page at 100% scale.</p>
+
+					<form id="card-form">
+						<label for="card-title">
+							Title
+							<input id="card-title" name="title" type="text" placeholder="Card title" required>
+						</label>
+
+						<label for="casting-cost">
+							Casting Cost
+							<input id="casting-cost" name="castingCost" type="text" placeholder="3G" required>
+						</label>
+
+						<label for="card-description" style="grid-column: 1 / -1;">
+							Description
+							<textarea id="card-description" name="description" placeholder="Write the card text here." required></textarea>
+						</label>
+
+						<div class="actions">
+							<button type="submit">Add Card</button>
+							<button type="button" id="print-button" class="secondary">Print Cards</button>
+							<button type="button" id="clear-button" class="secondary">Clear Cards</button>
+						</div>
+					</form>
+				</section>
+
+				<section class="preview" aria-labelledby="preview-title">
+					<h2 id="preview-title">Printable Cards</h2>
+					<div id="card-grid" class="card-grid"></div>
+					<p id="empty-state" class="empty-state">No cards yet. Add one to start building a printable sheet.</p>
+				</section>
+			</div>
+
+			<aside class="example-panel" aria-labelledby="example-title">
+				<h2 id="example-title">Example Card</h2>
+				<p class="hint">This is a fixed preview card so you can quickly see how your CSS affects the layout.</p>
+				<article class="card card-example">
+					<h3 class="card-title">CURSE OF THE DISTANT CUISINE</h3>
+					<p class="card-description">Find a resturant within your zone that explicitly serves food from a specific foreign country.</p>
+                    <p class="card-cost">Casting Cost: You must be at the resturant.</p>
+				</article>
+			</aside>
+		</div>
+	</main>
+
+	<template id="card-template">
+		<article class="card">
+			<h3 class="card-title"></h3>
+			<p class="card-description"></p>
+            <p class="card-cost"></p>
+			<button type="button" class="card-remove">Remove Card</button>
+		</article>
+	</template>
+
+	<script>
+		const cardForm = document.getElementById('card-form');
+		const cardGrid = document.getElementById('card-grid');
+		const emptyState = document.getElementById('empty-state');
+		const cardTemplate = document.getElementById('card-template');
+		const printButton = document.getElementById('print-button');
+		const clearButton = document.getElementById('clear-button');
+
+		const cards = [];
+
+		function renderCards() {
+			cardGrid.innerHTML = '';
+
+			cards.forEach((card, index) => {
+				const cardNode = cardTemplate.content.cloneNode(true);
+				cardNode.querySelector('.card-title').textContent = card.title;
+				cardNode.querySelector('.card-cost').textContent = `Casting Cost: ${card.castingCost}`;
+				cardNode.querySelector('.card-description').textContent = card.description;
+
+				cardNode.querySelector('.card-remove').addEventListener('click', () => {
+					cards.splice(index, 1);
+					renderCards();
+				});
+
+				cardGrid.appendChild(cardNode);
+			});
+
+			emptyState.hidden = cards.length > 0;
+		}
+
+		cardForm.addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			const formData = new FormData(cardForm);
+			cards.push({
+				title: String(formData.get('title') || '').trim(),
+				castingCost: String(formData.get('castingCost') || '').trim(),
+				description: String(formData.get('description') || '').trim(),
+			});
+
+			cardForm.reset();
+			document.getElementById('card-title').focus();
+			renderCards();
+		});
+
+		printButton.addEventListener('click', () => {
+			window.print();
+		});
+
+		clearButton.addEventListener('click', () => {
+			cards.length = 0;
+			renderCards();
+		});
+
+		renderCards();
+	</script>
+</body>
+</html>
