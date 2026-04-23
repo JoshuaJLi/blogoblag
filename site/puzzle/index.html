@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>
+        What's in a name? That which we call a rose <br>
+By any other name would smell as sweet
+    </p>
+
+
+<!-- PLEASE don't read more into this code, just do the puzzle and don't try and be clever about looking at the html -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!-- I don't want to figure out how to hash the answer -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!-- this is your final warning! -->
+
+    <input id="pw" type="password" placeholder="Password">
+    <button onclick="check()">Submit</button>
+    <p id="msg"></p>
+
+    <script>
+        // please don't try and unhash this
+      const HASH =
+        "c70be0d4a9526b51bbe34643021f4e6a6b81363a37be6ad8169a557806423116";
+
+      async function check() {
+        let input = document.getElementById("pw").value;
+
+        input = input.toLowerCase().replace(/\s+/g, "");
+
+        const hash = await sha256(input);
+
+        document.getElementById("msg").textContent =
+          hash === HASH
+            ? "Congrats! You solved my puzzle players! Now go tell Josh the secret phrase is \"I've solved your puzzle puzzle, puzzlemaster!\""
+            : "That's the wrong password";
+      }
+
+      async function sha256(text) {
+        const data = new TextEncoder().encode(text);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(hashBuffer))
+          .map(b => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+    </script>
+  </body>
+</html>

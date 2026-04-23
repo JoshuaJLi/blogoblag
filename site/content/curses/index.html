@@ -50,7 +50,7 @@
 				<p class="hint">This is a fixed preview card so you can quickly see how your CSS affects the layout.</p>
 				<article class="card card-example">
 					<h3 class="card-title">CURSE OF THE DISTANT CUISINE</h3>
-					<p class="card-description">Find a resturant within your zone that explicitly serves food from a specific foreign country.</p>
+					<p class="card-description" id="example-description">Find a resturant within your zone that explicitly serves food from a specific foreign country. {18|27|45}</p>
                     <p class="card-cost">Casting Cost: You must be at the resturant.</p>
 				</article>
 			</aside>
@@ -76,14 +76,53 @@
 
 		const cards = [];
 
+		function renderSizedDescription(text) {
+			const container = document.createElement('div');
+			const sizePattern = /\{(\d+)\|(\d+)\|(\d+)\}/g;
+			let lastIndex = 0;
+			let match;
+
+			while ((match = sizePattern.exec(text)) !== null) {
+				if (match.index > lastIndex) {
+					container.appendChild(
+						document.createTextNode(text.slice(lastIndex, match.index))
+					);
+				}
+
+				const badges = [
+					{ value: match[1], label: 'S', className: 'size-s' },
+					{ value: match[2], label: 'M', className: 'size-m' },
+					{ value: match[3], label: 'L', className: 'size-l' }
+				];
+
+				badges.forEach((badge, i) => {
+					if (i > 0) container.appendChild(document.createTextNode(' '));
+					const badgeEl = document.createElement('span');
+					badgeEl.className = `size-badge ${badge.className}`;
+					badgeEl.textContent = `${badge.label} ${badge.value}`;
+					container.appendChild(badgeEl);
+				});
+
+				lastIndex = sizePattern.lastIndex;
+			}
+
+			if (lastIndex < text.length) {
+				container.appendChild(document.createTextNode(text.slice(lastIndex)));
+			}
+
+			return container;
+		}
+
 		function renderCards() {
 			cardGrid.innerHTML = '';
 
 			cards.forEach((card, index) => {
 				const cardNode = cardTemplate.content.cloneNode(true);
 				cardNode.querySelector('.card-title').textContent = card.title;
-				cardNode.querySelector('.card-cost').textContent = `Casting Cost: ${card.castingCost}`;
-				cardNode.querySelector('.card-description').textContent = card.description;
+				cardNode.querySelector('.card-cost').textContent = card.castingCost;
+				const descNode = cardNode.querySelector('.card-description');
+				descNode.innerHTML = '';
+				descNode.appendChild(renderSizedDescription(card.description));
 
 				cardNode.querySelector('.card-remove').addEventListener('click', () => {
 					cards.splice(index, 1);
@@ -121,6 +160,14 @@
 		});
 
 		renderCards();
+
+		// Render the example card description with size badges
+		const exampleDesc = document.getElementById('example-description');
+		if (exampleDesc) {
+			const exampleText = exampleDesc.textContent;
+			exampleDesc.innerHTML = '';
+			exampleDesc.appendChild(renderSizedDescription(exampleText));
+		}
 	</script>
 </body>
 </html>
