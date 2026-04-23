@@ -19,8 +19,8 @@
 }
 
 @font-face {
-	font-family: 'Chronica Pro Book';
-	src: url('font/chronicapro-book.otf') format('opentype');
+	font-family: 'Kinetika Regular';
+	src: url('font/kinetika-regular.woff2') format('woff2');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -34,7 +34,8 @@ body {
 	padding: 1.25rem;
 	background: var(--page-bg);
 	color: var(--text-color);
-	font-family: 'Chronica Pro Book', Georgia, "Times New Roman", serif;
+	font-family: 'Kinetika Regular', Georgia, "Times New Roman", serif;
+	font-weight: 500;
 }
 
 .page {
@@ -203,6 +204,8 @@ button.secondary {
 	line-height: 1.2;
 	white-space: pre-wrap;
 	flex: 1;
+	font-family: 'Kinetika Regular', Georgia, 'Times New Roman', serif;
+	font-weight: 500;
 }
 
 .size-badge {
@@ -326,8 +329,8 @@ button.secondary {
 	}
 
 	.card-grid {
-		gap: 0;
-		grid-template-columns: repeat(3, var(--card-width));
+		gap: 0.15in;
+		grid-template-columns: repeat(4, var(--card-width));
 		align-content: start;
 		justify-content: start;
 	}
@@ -342,7 +345,7 @@ button.secondary {
 	}
 
 	@page {
-		size: letter;
-		margin: 0.5in;
+		size: letter landscape;
+		margin: 0.25in;
 	}
 }
